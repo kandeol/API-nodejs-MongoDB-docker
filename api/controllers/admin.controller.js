@@ -67,3 +67,20 @@ exports.createUser = (req, res) => {
         }
     });
 };
+
+exports.getAllInfosUsers = async (req, res) => {
+
+    const cursor = User.find().cursor();
+    let allDoc = [];
+    for (let doc = await cursor.next(); doc != null; doc = await cursor.next()) {
+        let info = {
+            username: doc.username,
+            email: doc.email
+        }
+        allDoc.push(info);
+        console.log("document", doc);
+    }
+    console.log(allDoc)
+    res.status(200).send(allDoc);
+    return;
+};
