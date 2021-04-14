@@ -84,3 +84,19 @@ exports.getAllInfosUsers = async (req, res) => {
     res.status(200).send(allDoc);
     return;
 };
+
+exports.deleteUser = async (req, res) => {
+    User.findOne({
+        username: req.body.username
+    }).then((user) => {
+        if (!user) {
+            return res.status(404).send({ message: "User Not found." });
+        }
+        User.deleteOne({ username: req.body.username }).then(() => {
+            res.status(200).send("User delete");
+        }).catch((error) => {
+            res.status(500).send("ERROR", error);
+            return;
+        })
+    })
+};
