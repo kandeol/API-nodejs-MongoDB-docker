@@ -1,30 +1,33 @@
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-const cors = require('cors');
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
 const mongodb = require('./mongo/mongo');
 
+const app = express();
 mongodb.initClientDbConnection();
-
-var app = express();
 
 app.use(cors({
     exposedHeaders: ['Authorization'],
     origin: '*'
 }));
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 
-app.use('/', indexRouter);
-// app.use('/users', usersRouter);
+// parse requests of content-type - application/json
+app.use(bodyParser.json());
 
-app.use(function (req, res, next) {
-    res.status(404).json({ name: 'API', version: '1.0', status: 404, message: 'not_found' });
+// parse requests of content-type - application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// simple route
+app.get("/", (req, res) => {
+    res.json({ message: "Welcome to unkle api." });
 });
+require('./routes/auth.routes')(app);
+require('./routes/user.routes')(app);
+
 
 module.exports = app;
+// set port, listen for requests
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}.`);
+});
