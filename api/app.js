@@ -22,6 +22,7 @@ app.get("/", (req, res) => {
     res.json({ message: "Welcome to unkle api." });
 });
 require('./routes/auth.routes')(app);
+require('./routes/admin.routes')(app);
 require('./routes/user.routes')(app);
 
 
