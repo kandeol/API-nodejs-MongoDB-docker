@@ -4,7 +4,10 @@ const AutoIncrement = require('mongoose-sequence')(mongoose);
 var contractSchema = new mongoose.Schema({
     numero_contract: Number,
     status: String,
-    start_date: Date,
+    start_date: {
+        type: Date,
+        min: Date.now(),
+    },
     end_date: Date,
     options: [
         {
