@@ -196,16 +196,21 @@ exports.createContract = async (req, res, next) => {
                             res.status(500).send("ERROR", error);
                             return;
                         }
-                        User.find({
-                            _id: result.client,
-                        }).then((doc) => {
-                            if (!doc) {
-                                console.log("message")
-                            } else {
-                                console.log("----DOC", doc);
+                        contract.client.map(cli => {
+                            console.log("CLI", cli)
 
-                            }
+                            User.updateOne({
+                                _id: cli,
+                            }, {
+                                contracts: result._id,
+                                options: contract.options
+                            }, (err) => {
+                                if (err) {
+                                    console.log(`Error: ` + err)
+                                }
+                            });
                         });
+
                         console.log("LAST----");
                         res.status(200).send("Contract create !");
                     })
