@@ -31,7 +31,6 @@ module.exports = function (app) {
     );
 
     app.delete("/api/admin/user/", [authJwt.verifyToken, authJwt.isAdmin], controller.deleteUser);
-
     app.get("/api/admin/users/", [authJwt.verifyToken, authJwt.isAdmin], controller.getAllInfosUsers);
     app.get("/api/admin/contracts/", [authJwt.verifyToken, authJwt.isAdmin], controller.getAllInfosContracts);
 };
