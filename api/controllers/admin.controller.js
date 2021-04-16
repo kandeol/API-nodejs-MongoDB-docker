@@ -145,33 +145,32 @@ exports.createContract = async (req, res, next) => {
             if (!users) {
                 console.log("users no found !")
             } else {
-                console.log("client!", users);
+                // console.log("client!", users);
 
                 contract.client = users.map(user => {
                     // verification que l'user enregsitrer dans le contrat est bien un client
 
-                    // Role.find(
-                    //     {
-                    //         _id: { $in: user.roles }
-                    //     },
-                    //     (err, roles) => {
-                    //         if (!err) {
-                    //             res.status(500).send({ message: "ERROR TEST" });
-                    //             return;
-                    //         }
+                    Role.find(
+                        {
+                            _id: { $in: user.roles }
+                        },
+                        (err, roles) => {
+                            if (err) {
+                                res.status(500).send({ message: "ERROR TEST" });
+                                return;
+                            }
 
-                    //         for (let i = 0; i < roles.length; i++) {
-                    //             if (roles[i].name === "admin") {
-                    //                 res.status(403).send({ message: "Only client can subscribe to contract!" });
-                    //                 return;
-                    //             }
-                    //         }
-                    //     }
-                    // );
+                            for (let i = 0; i < roles.length; i++) {
+                                if (roles[i].name === "admin") {
+                                    res.status(403).send({ message: "Only client can subscribe to contract!" });
+                                    return;
+                                }
+                            }
+                        }
+                    );
                     return user._id
                 }
                 );
-                console.log("CONTRAT---CLIENT", contract.client);
 
                 if (req.body.options) {
                     console.log("option!", req.body.options);
@@ -188,16 +187,37 @@ exports.createContract = async (req, res, next) => {
 
                         }
                     })
-
                     // on verifie que le client n'a pas deja souscrit a ces options
+
+                    await User.find({ username: req.body.client, }).then((element) => {
+                        console.log("OPTIONS-----------------PRESENT", element);
+
+                        element.map((user) => {
+                            const found = user.options.some(r => contract.options.indexOf(r) >= 0);
+                            console.log("FOUND --------", found);
+                            if (found) {
+                                res.status(500).send("ERROR OPTION deja present");
+                                return;
+                            }
+                        })
+                    }).catch((err) => {
+                        if (err) {
+                            res.status(500).send("ERROR", err);
+                            return;
+                        }
+
+                    })
+
+
                     await contract.save((err, result) => {
                         console.log("RESULT", result);
                         if (err) {
                             res.status(500).send("ERROR", error);
                             return;
                         }
+
+                        // Update des documents User => Contrats et Options
                         contract.client.map(cli => {
-                            console.log("CLI", cli)
 
                             User.updateOne({
                                 _id: cli,
