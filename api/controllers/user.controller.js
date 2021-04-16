@@ -1,6 +1,6 @@
 const db = require("../models");
 const User = db.user;
-
+const Contract = db.contract;
 
 
 // exports.allAccess = (req, res) => {
@@ -26,4 +26,27 @@ exports.getInfosClient = (req, res) => {
         return;
 
     })
+};
+
+exports.getInfosContracts = async (req, res) => {
+    var allDoc = []
+
+    await User.findOne({ _id: req.userId }).then((user) => {
+        allDoc = user.contracts.map(el => el);
+    }).catch((err) => {
+        res.status(500).send({ message: " error find user" });
+        return;
+    })
+
+    const cursor = Contract.find({ _id: allDoc }).cursor();
+    let allDoc2 = [];
+
+    for (let doc = await cursor.next(); doc != null; doc = await cursor.next()) {
+        allDoc2.push(doc);
+    }
+    console.log("alldoc2----------", allDoc2);
+    res.status(200).send(allDoc2);
+    return;
+
+
 };
