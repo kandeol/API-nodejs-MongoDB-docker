@@ -202,13 +202,16 @@ exports.createContract = async (req, res, next) => {
                             User.updateOne({
                                 _id: cli,
                             }, {
-                                contracts: result._id,
-                                options: contract.options
-                            }, (err) => {
-                                if (err) {
-                                    console.log(`Error: ` + err)
+                                $push: {
+                                    contracts: result._id
+                                    , options: contract.options
                                 }
-                            });
+                            }
+                                , (err) => {
+                                    if (err) {
+                                        console.log(`Error: ` + err)
+                                    }
+                                });
                         });
 
                         console.log("LAST----");
