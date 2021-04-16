@@ -103,10 +103,10 @@ If you need to update `npm`, you can make it using `npm`!
     git clone https://github.com/kandeol/test-technique-unkle-back-end.git
     ```
 
-4. Install depedencies
+4. Move branch
 
     ```bash
-    npm install
+    git checkout develop
     ```
 
 5. Execute the [docker-compose](https://docs.docker.com/compose/) file in the Docker folder
@@ -115,13 +115,25 @@ If you need to update `npm`, you can make it using `npm`!
     docker-compose up
     ```
 
-6. Start the node server locate in `./api/`
+6. Open terminal and move to `./api/`
 
     ```bash
-    node server.js
+    cd  api/
     ```
 
-7. Here we go ! You can now test (http://127.0.0.1:8080) !
+7. Install depedencies
+
+    ```bash
+    npm install
+    ```
+
+8. Start the node server locate
+
+    ```bash
+    npm start
+    ```
+
+9. Here we go ! You can now test (http://127.0.0.1:8080) !
 
 ## Usage
 
@@ -144,7 +156,7 @@ Open endpoints require no Authentication token , only username and password.
 }
 ```
 
--   [Login] : `POST /api/auth/signin`
+-   [Login] : `POST /api/auth/signin` => Provide a TOKEN
 
 ### Endpoints that require Authentication
 
@@ -153,18 +165,17 @@ request [x-access-token]. A Token can be acquired from the Login view above.
 
 ### Current Client related
 
-Each endpoint manipulates or displays information related to the User whose
-Token is provided with the request:
+Displays information related to the User :
 
 -   [Show info]: `GET /api/user/`
 -   [Show info contract]: `GET /api/user/contracts/`
 
 ### Account admin related
 
-Endpoints for viewing and manipulating the Accounts that the Authenticated Admin
+Viewing and manipulating a client or contract that the Authenticated Admin
 has permissions to access.
 
-data send via req.body in JSON
+## Data send via req.body in JSON
 
 -   [Show all infos contracts] : `GET /api/admin/contracts/`
 -   [Show all infos clients] : `GET /api/admin/users/`
