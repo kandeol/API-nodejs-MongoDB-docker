@@ -143,8 +143,6 @@ All path can be test with POSTMAN
 
 ### Open Endpoints
 
-Open endpoints require no Authentication token , only username and password.
-
 -   [SignUp for create account admin] : `POST /api/auth/signup`
 
 ```json
@@ -156,7 +154,16 @@ Open endpoints require no Authentication token , only username and password.
 }
 ```
 
+Open endpoints require no Authentication token , only username and password.
+
 -   [Login] : `POST /api/auth/signin` => Provide a TOKEN
+
+```json
+{
+    "username": "John",
+    "password": "John1234"
+}
+```
 
 ### Endpoints that require Authentication
 
