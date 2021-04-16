@@ -6,7 +6,6 @@ var contractSchema = new mongoose.Schema({
     status: String,
     start_date: {
         type: Date,
-        min: Date.now(),
     },
     end_date: Date,
     options: [
