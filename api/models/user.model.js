@@ -11,6 +11,20 @@ const User = mongoose.model(
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "Role"
             }
+        ],
+        contracts: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Contract",
+                unique: true
+            }
+        ],
+        options: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Option",
+                unique: true
+            }
         ]
     })
 );

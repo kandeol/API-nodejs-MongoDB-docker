@@ -21,7 +21,17 @@ module.exports = function (app) {
         controller.createUser
     );
 
+    app.post(
+        "/api/admin/contract",
+        [
+            authJwt.verifyToken,
+            authJwt.isAdmin
+        ],
+        controller.createContract
+    );
+
     app.delete("/api/admin/user", [authJwt.verifyToken, authJwt.isAdmin], controller.deleteUser);
 
     app.get("/api/admin/info/users", [authJwt.verifyToken, authJwt.isAdmin], controller.getAllInfosUsers);
+    app.get("/api/admin/info/contracts", [authJwt.verifyToken, authJwt.isAdmin], controller.getAllInfosContracts);
 };
