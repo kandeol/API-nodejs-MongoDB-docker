@@ -1,6 +1,3 @@
-// var express = require('express');
-// var router = express.Router();
-
 const { authJwt } = require("../middlewares");
 const controller = require("../controllers/user.controller");
 
@@ -13,18 +10,9 @@ module.exports = function (app) {
     next();
   });
 
-  // app.get("/api/test/all", controller.allAccess);
 
   app.get("/api/user/", [authJwt.verifyToken], controller.getInfosClient);
   app.get("/api/user/contracts/", [authJwt.verifyToken], controller.getInfosContracts);
-
-
-
-  // app.get(
-  //   "/api/test/admin",
-  //   [authJwt.verifyToken, authJwt.isAdmin],
-  //   controller.adminBoard
-  // );
 };
 
 

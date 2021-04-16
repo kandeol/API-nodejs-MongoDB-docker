@@ -1,11 +1,9 @@
-const config = require("../config/auth.config");
 const db = require("../models");
 const User = db.user;
 const Role = db.role;
 const Contract = db.contract;
 const Option = db.option;
 var dateFormat = require("dateformat");
-var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
 exports.createUser = (req, res) => {
@@ -110,9 +108,7 @@ exports.deleteUser = async (req, res) => {
 };
 
 exports.createContract = async (req, res, next) => {
-    const contract = new Contract({
-
-    });
+    const contract = new Contract({});
     const now = dateFormat(new Date(), "mm-dd-yyyy");
     if (req.body.start_date) {
         contract.start_date = req.body.start_date;
@@ -128,7 +124,6 @@ exports.createContract = async (req, res, next) => {
         }
         contract.status = "active"
     }
-
 
     if (req.body.options.length > 0) {
         let checkError = false;
@@ -204,7 +199,6 @@ exports.createContract = async (req, res, next) => {
         }).catch(err => {
             res.status(500).send("ERROR", err);
             return;
-
         });
         if (!checkError) {
             res.status(200).send("Contract create !");
@@ -216,6 +210,5 @@ exports.createContract = async (req, res, next) => {
     } else {
         res.status(500).send("Pas de client dans la demande de contrat");
         return;
-
     }
 };
