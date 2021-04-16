@@ -11,7 +11,7 @@ module.exports = function (app) {
     });
 
     app.post(
-        "/api/admin/user",
+        "/api/admin/user/",
         [
             verifySignUp.checkDuplicateUsernameOrEmail,
             verifySignUp.checkRolesExisted,
@@ -22,7 +22,7 @@ module.exports = function (app) {
     );
 
     app.post(
-        "/api/admin/contract",
+        "/api/admin/contract/",
         [
             authJwt.verifyToken,
             authJwt.isAdmin
@@ -30,8 +30,8 @@ module.exports = function (app) {
         controller.createContract
     );
 
-    app.delete("/api/admin/user", [authJwt.verifyToken, authJwt.isAdmin], controller.deleteUser);
+    app.delete("/api/admin/user/", [authJwt.verifyToken, authJwt.isAdmin], controller.deleteUser);
 
-    app.get("/api/admin/info/users", [authJwt.verifyToken, authJwt.isAdmin], controller.getAllInfosUsers);
-    app.get("/api/admin/info/contracts", [authJwt.verifyToken, authJwt.isAdmin], controller.getAllInfosContracts);
+    app.get("/api/admin/users/", [authJwt.verifyToken, authJwt.isAdmin], controller.getAllInfosUsers);
+    app.get("/api/admin/contracts/", [authJwt.verifyToken, authJwt.isAdmin], controller.getAllInfosContracts);
 };
