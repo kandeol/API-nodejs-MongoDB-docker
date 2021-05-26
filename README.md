@@ -20,7 +20,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <h1 align="center">Test technique Unkle Backend</h1>
+  <h1 align="center">API nodejs - MongoDB docker</h1>
   <p align="center">
     This project consists in creating a API
     <br />
@@ -222,8 +222,6 @@ has permissions to access.
 ## Contact
 
 ANDEOL Kévin - andeol.kevin@gmail.com
-
-Project Link: [https://github.com/kandeol/test-technique-unkle-back-end](https://github.com/kandeol/test-technique-unkle-back-end)
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
