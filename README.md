@@ -100,40 +100,34 @@ If you need to update `npm`, you can make it using `npm`!
 3. Clone or download/extract the project repository
 
     ```bash
-    git clone https://github.com/kandeol/test-technique-unkle-back-end.git
+    git clone https://github.com/kandeol/API-nodejs-MongoDB-docker.git
     ```
 
-4. Move branch
-
-    ```bash
-    git checkout develop
-    ```
-
-5. Execute the [docker-compose](https://docs.docker.com/compose/) file in the Docker folder
+4. Execute the [docker-compose](https://docs.docker.com/compose/) file in the Docker folder
 
     ```bash
     docker-compose up
     ```
 
-6. Open terminal and move to `./api/`
+5. Open terminal and move to `./api/`
 
     ```bash
     cd  api/
     ```
 
-7. Install depedencies
+6. Install depedencies
 
     ```bash
     npm install
     ```
 
-8. Start the node server locate
+7. Start the node server locate
 
     ```bash
     npm start
     ```
 
-9. Here we go ! You can now test (http://127.0.0.1:8080) !
+8. Here we go ! You can now test (http://127.0.0.1:8080) !
 
 ## Usage
 
